@@ -82,6 +82,9 @@ end
 
 J *= 1 / m;
 
+% add cost for regularization terms (remember to remove first column since we dont regularize bias terms)
+J += lambda/(2*m) * ( sum ( sum ( Theta1(:, 2:end) .^ 2 ) ) + sum ( sum ( Theta2(:, 2:end) .^ 2 ) ) )
+
 % -------------------------------------------------------------
 
 % =========================================================================
