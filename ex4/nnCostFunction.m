@@ -83,11 +83,29 @@ end
 J *= 1 / m;
 
 % add cost for regularization terms (remember to remove first column since we dont regularize bias terms)
-J += lambda/(2*m) * ( sum ( sum ( Theta1(:, 2:end) .^ 2 ) ) + sum ( sum ( Theta2(:, 2:end) .^ 2 ) ) )
+J += lambda/(2*m) * ( sum ( sum ( Theta1(:, 2:end) .^ 2 ) ) + sum ( sum ( Theta2(:, 2:end) .^ 2 ) ) );
 
 % -------------------------------------------------------------
 
+for t = 1:m
+    a1 = X(t, :);
+    z2 = Theta1 * a1';
+    a2 = [1; sigmoid(z2)];
+    z3 = Theta2 * a2;
+    a3 = sigmoid(z3);
+    
+    d3 = a3 - yBvec(t, :)';
+                        % should we replace this with a3 * ( 1 - 3 )?
+    d2 = (Theta2' * d3) .* [1; sigmoidGradient(z2)];
+    d2 = d2(2:end);
+    
+    Theta2_grad += d3 * a2';
+    Theta1_grad += d2 * a1;
+end
 % =========================================================================
+
+Theta2_grad *= 1 / m;
+Theta1_grad *= 1 / m;
 
 % Unroll gradients
 grad = [Theta1_grad(:) ; Theta2_grad(:)];
