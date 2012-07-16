@@ -21,12 +21,16 @@ p = zeros(size(X, 1), 1);
 %       can use max(A, [], 2) to obtain the max for each row.
 %
 
+% Add ones to the X data matrix
+X = [ones(m, 1) X];
 
+% Input layer -> Hidden layer
+a1 = X;
+z2 = a1 * Theta1';
+a2 = [ones(m, 1) sigmoid(z2)];
 
-
-
-
-
+% -> Output layer
+[_, p] = max(sigmoid(a2 * Theta2'), [], 2);
 
 
 % =========================================================================
