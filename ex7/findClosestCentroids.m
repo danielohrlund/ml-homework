@@ -23,7 +23,16 @@ idx = zeros(size(X,1), 1);
 
 
 
-
+for i = 1:size(X, 1)
+    minFound = realmax;
+    for j = 1:K
+        newValue = sum( ( X(i, :) - centroids(j, :) ) .^2 );
+        if newValue < minFound
+            minFound = newValue;
+            idx(i) = j;
+        end
+    end
+end
 
 
 
