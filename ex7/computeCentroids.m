@@ -27,7 +27,11 @@ centroids = zeros(K, n);
 %
 
 
-
+for i = 1:size(centroids)
+    examplesAssigned = arrayfun( @(id)(id == i), idx );
+    ck = sum(examplesAssigned);
+    centroids(i, :) = 1/ck * examplesAssigned' * X;
+end
 
 
 
