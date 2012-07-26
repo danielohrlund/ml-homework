@@ -47,8 +47,8 @@ J += lambda/2 * sum( sum( X .^ 2 ) );
 
 part = (X * Theta' - Y) .* R;
 
-X_grad = part * Theta;
-Theta_grad = part' * X;
+X_grad = part * Theta + lambda*X;
+Theta_grad = part' * X + lambda*Theta;
 
 % =============================================================
 
